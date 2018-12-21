@@ -41,6 +41,12 @@ readSpec = Spec.describe "read" do
     Spec.it "is the correct Map" do
       req <- TestHelpers.mockRequest "" "/test?&&a&b=c&b=d&&&e=f&g=&" "" []
       Query.read req ?= expectedComplexResult
+    Spec.it "is equal sign preserved in values" do
+      req <- TestHelpers.mockRequest "" "/test?k=v1=v2=v3" "" []
+      Query.read req ?= Object.fromFoldable [ Tuple.Tuple "k" "v1=v2=v3"]
+    Spec.it "skips empty assigment" do
+      req <- TestHelpers.mockRequest "" "/test?=" "" []
+      Query.read req ?= Object.fromFoldable []
   Spec.describe "with urlencoded params" do
     Spec.it "decodes valid keys and values" do
       req <- TestHelpers.mockRequest "" "/test?foo%20bar=%3Fx%3Dtest" "" []
