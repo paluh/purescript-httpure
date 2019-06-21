@@ -18,20 +18,20 @@ import HTTPure.Version as Version
 -- | The `Request` type is a `Record` type that includes fields for accessing
 -- | the different parts of the HTTP request.
 type Request =
-  { fullPath ∷ String
-  , method ∷ Method.Method
-  , path ∷ Path.Path
-  , query ∷ Query.Query
-  , headers ∷ Headers.Headers
-  , body ∷ String
-  , httpVersion ∷ Version.Version
+  { fullPath :: String
+  , method :: Method.Method
+  , path :: Path.Path
+  , query :: Query.Query
+  , headers :: Headers.Headers
+  , body :: String
+  , httpVersion :: Version.Version
   }
 
 -- | Given an HTTP `Request` object, this method will convert it to an HTTPure
 -- | `Request` object.
-fromHTTPRequest ∷ HTTP.Request → Aff.Aff Request
+fromHTTPRequest :: HTTP.Request -> Aff.Aff Request
 fromHTTPRequest request = do
-  body ← Body.read request
+  body <- Body.read request
   pure $
     { fullPath: HTTP.requestURL request
     , method: Method.read request
