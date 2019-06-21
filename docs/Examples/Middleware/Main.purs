@@ -11,12 +11,10 @@ loggingMiddleware :: (HTTPure.Request -> HTTPure.ResponseM) ->
                      HTTPure.Request ->
                      HTTPure.ResponseM
 loggingMiddleware router request = do
-  EffectClass.liftEffect $ Console.log $ "Request starting for " <> path
+  EffectClass.liftEffect $ Console.log $ "Request starting for " <> request.fullPath
   response <- router request
-  EffectClass.liftEffect $ Console.log $ "Request ending for " <> path
+  EffectClass.liftEffect $ Console.log $ "Request ending for " <> request.fullPath
   pure response
-  where
-    path = HTTPure.fullPath request
 
 -- | A middleware that adds the X-Middleware header to the response, if it
 -- | wasn't already in the response

@@ -15,7 +15,7 @@ import HTTPure.Lookup (at, (!@), has, (!?), lookup, (!!))
 import HTTPure.Method (Method(..))
 import HTTPure.Path (Path)
 import HTTPure.Query (Query)
-import HTTPure.Request (Request, fullPath)
+import HTTPure.Request (Request)
 import HTTPure.Response
   ( Response
   , ResponseM
